@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+            padding: 3px;
+        }
+        </style>
+</head>
+<body>
+    <h2>Simple Chatbot</h2>
+
+    <form action="{% url 'app:index'  %}" method="post">
+        {% csrf_token %}
+        <label>Start enter chat message below</label><br/>
+        <input name='userchat'><br/>
+        <input type="submit" value="Chat"><br/><br/>
+    </form>
+
+    <label>AI thinks chat category is </label><br/>
+        {{category}}<br/><br/>
+        <label>AI reply </label><br/>
+        {{reply}}<br/><br/>
+
+        <label>AI Prediction, has to be more than 95% sure</label>
+        <table>
+            <tr>
+                {% for item in categories%}
+                    <th>{{item}}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for item in probability%}
+                    <td>{{item}}</td>
+                {% endfor %}
+            </tr>
+        </table><br/>
+
+        <label>AI CheatSheet</label><br/><br/>
+        {% for item in cheatSheet.intents%}
+            <label>Tag </label>
+             {{item.tag}}<br/>
+            <label>Pattern</label><br/>
+             {{item.patterns}}<br/>
+            <label>Responses </label><br/>
+            {{item.responses}}<br/><br/>
+        {% endfor %}
+</body>
+</html>
